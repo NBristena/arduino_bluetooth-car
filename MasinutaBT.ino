@@ -9,10 +9,7 @@ int drFront = 9;
 int drBack = 6;
 
 void setup() {
-    delay(500); 
-    //Serial.print("$");
-    //Serial.print("$");
-    //Serial.print("$");
+    delay(500);
     Serial.begin(115200);
   
     pinMode(stgFront,OUTPUT); //Motor1
@@ -25,7 +22,9 @@ void loop() {
     BT();
 }
 
-//compara comanda din cmd cu stringul st
+/**************************************************************************************
+ * Functia cmdStartsWith compara comanda transmisa prin bluetooth cu un string dat st *
+ **************************************************************************************/
 boolean cmdStartsWith(char *st) {
     for(int i = 0; ; i++) {
         if(st[i] == 0) return true;
@@ -35,6 +34,9 @@ boolean cmdStartsWith(char *st) {
     return false;
 }
 
+/*********************************************************************************
+ * Functia BT foloseste functiile de citire si interpretare a comenzilor primite *
+ *********************************************************************************/
 void BT(){
     btRead();
     d2 = x + y;
@@ -42,6 +44,9 @@ void BT(){
     viteza( d1, d2);
 }
 
+/****************************************************************************************
+ * Functia btRead citeste caractere de la bluetooth si interpreteaza directia comandata *
+ ****************************************************************************************/
 void btRead(){
     if(Serial.available()) {
         char c = (char)Serial.read();
@@ -54,7 +59,7 @@ void btRead(){
             }
             if( cmdStartsWith("y ") )
                 y = atoi(cmd + 2);
-            cmdIndex = 0; // reset the cmdIndex
+            cmdIndex = 0;
         }
         else {      
             cmd[cmdIndex] = c;
@@ -64,6 +69,10 @@ void btRead(){
     }
 }
 
+/**************************************************************************
+ * Functia viteza seteaza directa in care motoarele trebuie sa se invarta *
+ **************************************************************************/
+//seteaza directa in care motoarele trebuie sa se invarta
 void viteza(int dr, int stg){
     if(dr >= 0){
         digitalWrite(drBack,0);
