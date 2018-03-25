@@ -72,7 +72,6 @@ void btRead(){
 /**************************************************************************
  * Functia viteza seteaza directa in care motoarele trebuie sa se invarta *
  **************************************************************************/
-//seteaza directa in care motoarele trebuie sa se invarta
 void viteza(int dr, int stg){
     if(dr >= 0){
         digitalWrite(drBack,0);
